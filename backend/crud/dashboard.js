@@ -2,6 +2,7 @@ const express = require("express");
 const Profile = require("../schema/Profile");
 const router = express.Router();
 const Patents = require("../schema/Patents");
+const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/sendmail");
 
 router.post("/addpatents", async (req, res) => {
@@ -199,14 +200,23 @@ router.put(
         if (department) committeeMember.department = department;
         if (approved !== undefined) {
         committeeMember.approved = approved;
-      if(approved=="true") {
-        const receiverEmail = committeeMember.email;
-        const senderEmail = "riyajindal769@gmail.com"; 
-        const emailSubject = "Invitation to Join Committee";
-        const emailMessage =
-          "You have been approved to join the committee. Please accept the invitation.";
+        if(approved==true) {
+           const tokenPayload = {
+             patentId: patent._id,
+             committeeMemberId: committeeMember._id,
+           };
 
-        await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
+           const token = jwt.sign(tokenPayload, "secretKey", {
+             expiresIn: "72h",
+           });
+          
+          const receiverEmail = committeeMember.email;
+          const senderEmail = "riyajindal769@gmail.com"; 
+          const emailSubject = "Invitation to Join Committee";
+          const acceptLink = `http://localhost:5000/api/profiles/accept-invite/${token}`;
+          const rejectLink = `http://localhost:5000/api/profiles/reject-invite/${token}`;
+          const emailMessage = `You have been approved to join the committee. Click the following link to accept or reject the invitation:\n\nAccept: ${acceptLink}\nReject: ${rejectLink}`;
+          await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
       }}
         await patent.save();
       res.json({ committeeMember });
@@ -216,5 +226,49 @@ router.put(
     }
   }
 );
+router.get('/accept-invite/:token', async (req, res) => {
+  try {
+    const { token } = req.params;
+    const decoded = jwt.verify(token, "secretKey");
+    const patentId = decoded.patentId;
+    const committeeMemberId = decoded.committeeMemberId;
+    const patent = await Patents.findById(patentId);
+    if (!patent) {
+      return res.status(404).send("Patent not found");
+    }
+    const committeeMember = patent.committeeMembers.id(committeeMemberId);
+    if (!committeeMember) {
+      return res.status(404).send("Committee member not found");
+    }
+      committeeMember.joined = true;
+        await committeeMember.save();
+        res.send("Invitation accepted successfully!");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }});
+  router.get("/reject-invite/:token", async (req, res) => {
+    try {
+    const { token } = req.params;
+    const decoded = jwt.verify(token, "secretKey");
+    const patentId = decoded.patentId;
+    const committeeMemberId = decoded.committeeMemberId;
+    const patent = await Patents.findById(patentId);
+    if (!patent) {
+      return res.status(404).send("Patent not found");
+    }
+    const committeeMember = patent.committeeMembers.id(committeeMemberId);
+    if (!committeeMember) {
+      return res.status(404).send("Committee member not found");
+    }
+      committeeMember.joined = false;
+        await committeeMember.save();
+        res.send("Invitation rejected!");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+  });
+  
 
 module.exports = router;
