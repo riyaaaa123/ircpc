@@ -16,6 +16,7 @@ router.post('/addpatents', async (req, res) => {
         inventor,
         references,
         acknowledgments,
+        committeeMembers,
       } = req.body;
   
       const savedPatent = await Patents.create({
@@ -29,8 +30,8 @@ router.post('/addpatents', async (req, res) => {
         inventor,
         references,
         acknowledgments,
+        committeeMembers,
       });
-  
       res.json(savedPatent);
     } catch (error) {
       console.error(error.message);
@@ -51,29 +52,59 @@ router.post('/addpatents', async (req, res) => {
         inventor,
         references,
         acknowledgments,
+        committeeMembers,
       } = req.body;
-  
+
       // Create a newPatent object
       const newPatent = {};
-      if (title) { newPatent.title = title };
-      if (fieldOfInvention) { newPatent.fieldOfInvention = fieldOfInvention };
-      if (background) { newPatent.background = background };
-      if (summary) { newPatent.summary = summary };
-      if (drawings) { newPatent.drawings = drawings };
-      if (detailedDescription) { newPatent.detailedDescription = detailedDescription };
-      if (claims) { newPatent.claims = claims };
-      if (inventor) { newPatent.inventor = inventor };
-      if (references) { newPatent.references = references };
-      if (acknowledgments) { newPatent.acknowledgments = acknowledgments };
-  
+      if (title) {
+        newPatent.title = title;
+      }
+      if (fieldOfInvention) {
+        newPatent.fieldOfInvention = fieldOfInvention;
+      }
+      if (background) {
+        newPatent.background = background;
+      }
+      if (summary) {
+        newPatent.summary = summary;
+      }
+      if (drawings) {
+        newPatent.drawings = drawings;
+      }
+      if (detailedDescription) {
+        newPatent.detailedDescription = detailedDescription;
+      }
+      if (claims) {
+        newPatent.claims = claims;
+      }
+      if (inventor) {
+        newPatent.inventor = inventor;
+      }
+      if (references) {
+        newPatent.references = references;
+      }
+      if (acknowledgments) {
+        newPatent.acknowledgments = acknowledgments;
+      }
+      if (committeeMembers) {
+        newPatent.committeeMembers = committeeMembers;
+      }
+
       // Find the patent to be updated and update it
       let patent = await Patents.findById(req.params.id);
-      if (!patent) { return res.status(404).send("Not Found") }
-  
+      if (!patent) {
+        return res.status(404).send("Not Found");
+      }
+
       // Add any additional conditions for authorization if needed
       // For example, you might want to check if the user making the request has the right permissions
-  
-      updatedPatent = await Patents.findByIdAndUpdate(req.params.id, { $set: newPatent }, { new: true });
+
+      updatedPatent = await Patents.findByIdAndUpdate(
+        req.params.id,
+        { $set: newPatent },
+        { new: true }
+      );
       res.json({ updatedPatent });
     } catch (error) {
       console.error(error.message);
