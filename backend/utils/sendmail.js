@@ -1,0 +1,29 @@
+const nodemailer = require("nodemailer");
+
+// Create a transporter with your email service credentials
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "riyajindal769@gmail.com",
+    pass: "nuxsqdysepzjufvb",
+  },
+});
+
+function sendMail(receiver, sender, subject, message) {
+  const mailOptions = {
+    from: sender,
+    to: receiver,
+    subject: subject,
+    text: message,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
+
+module.exports = { sendMail };
