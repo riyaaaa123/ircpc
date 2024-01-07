@@ -18,13 +18,6 @@ app.use('/api/profiles', require('./crud/dashboard'))
 app.listen(port, () => {
   console.log(`server listening at http://localhost:${port}`)
 })
-const receiverEmail = "riya_j@me.iitr.ac.in";
-const senderEmail = "riyajindal769@gmail.com";
-const emailSubject = "Test Email";
-const emailMessage = "Hello, this is a test email from Node.js!";
-
-sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
-
 
 
 //********************now listen message and to do */

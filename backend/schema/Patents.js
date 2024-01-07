@@ -15,6 +15,7 @@ const committeeMemberSchema = new mongoose.Schema({
     },
   },
   department: { type: String, required: true },
+  approved: { type: Boolean, default: false },
 });
 const patentSchema = new Schema({
   title: {
