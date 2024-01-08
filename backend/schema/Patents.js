@@ -2,6 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define the schema
+const committeeMemberSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function (value) {
+        return /\S+@\S+\.\S+/.test(value);
+      },
+      message: "Invalid email format",
+    },
+  },
+  department: { type: String, required: true },
+  approved: { type: Boolean, default: false },
+  joined: { type: Boolean, default: false },
+});
 const patentSchema = new Schema({
   title: {
     type: String,
@@ -20,8 +36,12 @@ const patentSchema = new Schema({
     name: String,
     background: String,
   },
+  dateOfApplication: { type: Date, default: Date.now },
+  status: { type: Boolean, default: false },
   references: [String],
   acknowledgments: String,
+  committeeMembers: {
+  type: [committeeMemberSchema],}
 });
 
 // Create a model based on the schema

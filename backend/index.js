@@ -1,5 +1,6 @@
 const connectToMongo = require('./db');
 const express = require('express');
+const {sendMail} = require('./utils/sendmail');
 var cors = require('cors');
 require("dotenv").config();
 connectToMongo();
@@ -17,8 +18,6 @@ app.use('/api/profiles', require('./crud/dashboard'))
 app.listen(port, () => {
   console.log(`server listening at http://localhost:${port}`)
 })
-
-
 
 
 //********************now listen message and to do */
