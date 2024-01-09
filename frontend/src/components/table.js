@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Row from "./table_row"
 
 export default function Table() {
   return (
@@ -33,11 +34,12 @@ export default function Table() {
                                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Status</th>
                                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Last Modified</th>
                                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Submitted on</th>
-                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Action</th>
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Details</th>
                                 <th class="px-6 py-3 border-b-2 border-gray-300"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
+                            <Row id="#1" name="Kunal" title="BMS, intellegent battery management system" department="physics" status="approved by dean siric" lastmodified="12 Dec" submittedon="1 Dec" view_details="click here"></Row>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                         <div class="flex items-center">

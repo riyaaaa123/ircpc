@@ -1,4 +1,4 @@
-export default function Row(id,name,title,department, status,lastmodified, action){
+export default function Row(id,name,title,department, status,lastmodified,submittedon,view_details){
     return(
         <>
         <tr>
@@ -21,8 +21,9 @@ export default function Row(id,name,title,department, status,lastmodified, actio
                                     </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">{lastmodified}</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">{submittedon}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
-                                        <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">{action}</button>
+                                        <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">{view_details}</button>
                                     </td>
               </tr>
         </>
