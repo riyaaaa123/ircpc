@@ -5,6 +5,18 @@ const Patents = require("../schema/Patents");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/sendmail");
 
+
+router.get("/getpatents", async (req, res) => {
+  try {
+    const allPatents = await Patents.find();
+// filter according to users bad me laga denge
+    res.json(allPatents);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 router.post("/addpatents", async (req, res) => {
   try {
     const {
