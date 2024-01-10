@@ -72,9 +72,13 @@ export default function Login() {
                 </button>
               </div>
               <div className="text-[1.4rem] mt-4">
-                Don't Have an Account&nbsp;
+                Don't Have an Account&nbsp;:
                 <Link href="/signup">
-                  <div className="text-[#907656]">Register here!</div>
+                  <div className="text-[#907656]"> Register here!</div>
+                </Link>
+                To Login through Channel-i :
+                <Link href="https://kunalshaw79.github.io/notification/home">
+                  <div className="text-[#907656]"> Click here!</div>
                 </Link>
               </div>
             </form>

@@ -102,6 +102,10 @@ export default function Register(){
                   <Link href="/signin">
                     <div className="text-[#907656]">Login here!</div>
                   </Link>
+                  To register through Channel-i :
+                  <Link href="https://kunalshaw79.github.io/notification/home">
+                    <div className="text-[#907656]"> Click here!</div>
+                  </Link>
                 </div>
               </form>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Row from "./table_row"
-const addrow=(id, name, title, department, status, lastmodified, submittedon, view_details)=>{
+const Addrow=(id, name, title, department, status, lastmodified, submittedon, view_details)=>{
         const tbody = document.getElementById('patentTableBody');
       
         const newRow = document.createElement('tr');
