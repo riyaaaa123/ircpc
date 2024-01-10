@@ -26,7 +26,13 @@ export default function Register(){
             password,
           }
         );
-        console.log(response.data); 
+        console.log(response.data);
+        if (response.data.success) {
+          console.log("User created successfully");
+             window.location.href = "/"; 
+        } else {
+          setError("Email is already in use");
+        } 
       } catch (error) {
         console.error(error.response.data);
          setError('Registration failed. Please try again.'); 
@@ -84,18 +90,18 @@ export default function Register(){
                 </div>
                 <div className="justify-center flex bg-[#907656] mt-3 rounded-md">
                   <button
-                  type="button" 
+                    type="button"
                     onClick={handleRegister}
                     className="text-[1.3rem]  py-1.5  "
                   >
                     Register
                   </button>
                 </div>
-                <div className="text-[1.3rem] mt-3">
+                <div className="text-[1.3rem] mt-3 ">
                   Already Have an Account&nbsp;&nbsp;
-                  <a href="" className="text-[#907656]">
-                    Login here!
-                  </a>
+                  <Link href="/signin">
+                    <div className="text-[#907656]">Login here!</div>
+                  </Link>
                 </div>
               </form>
             </div>

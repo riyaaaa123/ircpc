@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import Link from 'next/link';
 
 export default function Login() {
    const [email, setEmail] = useState("");
@@ -14,7 +15,8 @@ export default function Login() {
           password,
         });
         if (response.data.success) {
-          console.log("wowiee");
+          console.log("You have successfully logged in");
+           window.location.href = "/"; 
         } else {
           setError("Invalid credentials");
         }
@@ -71,9 +73,9 @@ export default function Login() {
               </div>
               <div className="text-[1.4rem] mt-4">
                 Don't Have an Account&nbsp;
-                <a href="" className="text-[#907656]">
-                  Register here!
-                </a>
+                <Link href="/signup">
+                  <div className="text-[#907656]">Register here!</div>
+                </Link>
               </div>
             </form>
           </div>
