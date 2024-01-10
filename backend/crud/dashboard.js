@@ -41,7 +41,7 @@ router.post("/addpatents", async (req, res) => {
       "Congratulations! You have successfully added your patent claim";
 
     await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
-    const receiverEmail1 = "riya_j@me.iitr.ac.in";
+    const receiverEmail1 = "k_shaw@ph.iitr.ac.in";
     const emailMessage1 = "Someone has added a patent claim, please visit the website to verify"
     await sendMail(receiverEmail1, senderEmail,emailSubject, emailMessage1)
 
