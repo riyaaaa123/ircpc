@@ -7,7 +7,7 @@ import AddPatentForm from '../components/patents';
 export default function Home() {
   return (
         <>
-        <AddPatentForm/>
+        <Homepage/>
         </>
   )
 }
