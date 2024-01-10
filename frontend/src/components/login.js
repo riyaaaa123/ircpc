@@ -1,7 +1,30 @@
 "use client";
 import React, { useState } from "react";
+import axios from "axios";
+import Link from 'next/link';
 
 export default function Login() {
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [error, setError] = useState("");
+    const handleLogin = async (event) => {
+      event.preventDefault();
+      try {
+        const response = await axios.post("http://localhost:5000/api/auth/login", {
+          email,
+          password,
+        });
+        if (response.data.success) {
+          console.log("You have successfully logged in");
+           window.location.href = "/"; 
+        } else {
+          setError("Invalid credentials");
+        }
+      } catch (error) {
+        console.error("Error during login:", error.message);
+        setError("Login failed. Please try again.");
+      }
+    };
   return (
     <>
       <div
@@ -21,6 +44,8 @@ export default function Login() {
                   type="email"
                   id="email"
                   name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email "
                   className="text-[1.2rem] h-[4vh] bg-transparent border border-green"
                 />
@@ -31,15 +56,30 @@ export default function Login() {
                   type="password"
                   name="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter password"
                   className="text-[1.2rem] h-[4vh] bg-transparent border border-green"
                 />
               </div>
+              <div className="justify-center flex bg-[#907656] mt-3 rounded-md">
+                <button
+                  type="button"
+                  onClick={handleLogin}
+                  className="text-[1.3rem]  py-1.5  "
+                >
+                  Login
+                </button>
+              </div>
               <div className="text-[1.4rem] mt-4">
-               Don't Have an Account&nbsp;
-                <a href="" className="text-[#907656]">
-                  Register here!
-                </a>
+                Don't Have an Account&nbsp;:
+                <Link href="/signup">
+                  <div className="text-[#907656]"> Register here!</div>
+                </Link>
+                To Login through Channel-i :
+                <Link href="https://kunalshaw79.github.io/notification/home">
+                  <div className="text-[#907656]"> Click here!</div>
+                </Link>
               </div>
             </form>
           </div>

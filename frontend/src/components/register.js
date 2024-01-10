@@ -1,17 +1,18 @@
 "use client";
 import React,{useState} from 'react';
+import Link from "next/link";
 import axios from "axios";
+import Login from "./login";
 
 export default function Register(){
      const [name, setName] = useState("");
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
-     const [loading, setLoading] = useState(false);
      const [error, setError] = useState("");
 
-    const handleRegister = async () => {
+    const handleRegister = async (event) => {
+      event.preventDefault();
       try {
-         setLoading(true);
          setError("");
          if (!name || !email || !password) {
            setError("Please fill in all fields.");
@@ -25,12 +26,17 @@ export default function Register(){
             password,
           }
         );
-        console.log(response.data); 
+        console.log(response.data);
+        if (response.data.success) {
+          console.log("User created successfully");
+             window.location.href = "/"; 
+        } else {
+          setError("Email is already in use");
+        } 
       } catch (error) {
         console.error(error.response.data);
          setError('Registration failed. Please try again.'); 
-       } finally {
-      setLoading(false);}
+       } 
     };
 
     return (
@@ -84,17 +90,22 @@ export default function Register(){
                 </div>
                 <div className="justify-center flex bg-[#907656] mt-3 rounded-md">
                   <button
+                    type="button"
                     onClick={handleRegister}
                     className="text-[1.3rem]  py-1.5  "
                   >
-                    {loading ? "Registering..." : "Register"}
+                    Register
                   </button>
                 </div>
-                <div className="text-[1.3rem] mt-3">
+                <div className="text-[1.3rem] mt-3 ">
                   Already Have an Account&nbsp;&nbsp;
-                  <a href="" className="text-[#907656]">
-                    Login here!
-                  </a>
+                  <Link href="/signin">
+                    <div className="text-[#907656]">Login here!</div>
+                  </Link>
+                  To register through Channel-i :
+                  <Link href="https://kunalshaw79.github.io/notification/home">
+                    <div className="text-[#907656]"> Click here!</div>
+                  </Link>
                 </div>
               </form>
             </div>

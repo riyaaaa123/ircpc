@@ -14,7 +14,7 @@ const committeeMemberSchema = new mongoose.Schema({
       message: "Invalid email format",
     },
   },
-  department: { type: String, required: true },
+  department: { type: String },
   approved: { type: Boolean, default: false },
   joined: { type: Boolean, default: false },
 });
@@ -30,7 +30,7 @@ const patentSchema = new Schema({
   detailedDescription: String,
   claims: {
     type: [String],
-    required: true,
+    // required: true,
   },
   inventor: {
     name: String,
