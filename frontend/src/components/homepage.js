@@ -16,7 +16,7 @@ export default function Homepage() {
     const client_secret = "FkEK5CHn68xv0sBolyS14oUTJsbHPL0Jsowi8TJU895tPj05gC16cr1pIHF6ycDOPbwYOqCokmda7wX5osYfEGn4zVrcV8563pecjggHE7b1rARQG4jbbuiKEzF6s9zu";
     const authorization_code = window.location.search.split("&")[0].replace("?code=", "");
     console.log(authorization_code) 
-    const grant_type = "authorization_code";
+    const grant_type = authorization_code;
     const redirect_uri = "http://localhost:8080/";
 
     const data = `client_id=${client_id}&client_secret=${client_secret}&grant_type=${grant_type}&redirect_uri=${redirect_uri}&code=${authorization_code}`;
@@ -55,10 +55,10 @@ export default function Homepage() {
 // fetch_user_data
   return (
     <>
-    {/* <Mainpage/> */}
-    <button onClick={fetch_user_data}>fetch</button>
-      <div className="flex justify-between	">
-        <Sidebar/>
+      {/* <Mainpage/> */}
+      <button onClick={fetch_user_data}>fetch</button>
+      <div className="grid grid-cols-[auto,1fr]">
+        <Sidebar className="h-screen" />
         <Table />
       </div>
     </>
