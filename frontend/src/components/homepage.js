@@ -19,18 +19,42 @@ export default function Homepage() {
     const grant_type = "authorization_code";
     const redirect_uri = "http://localhost:8080/";
 
-    const data = `client_id=${client_id}&client_secret=${client_secret}&grant_type=${grant_type}&redirect_uri=${redirect_uri}&code=${authorization_code}`;
-    const retrieve_token_uri = "https://channeli.in/open_auth/token/";
+    // const data = `client_id=${client_id}&client_secret=${client_secret}&grant_type=${grant_type}&redirect_uri=${redirect_uri}&code=${authorization_code}`;
+    // const retrieve_token_uri = "https://channeli.in/open_auth/token/";
 
     try {
         // POST request to retrieve access token
-        const tokenResponse = await axios.post(retrieve_token_uri, data, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
-        const access_token = tokenResponse.data.access_token;
-
+        // const tokenResponse = await axios.post(retrieve_token_uri, data, {
+        //     headers: {
+        //         'Content-Type': 'application'
+        //     }
+        // });
+        const data =
+        "client_id=" +
+        client_id +
+        "&client_secret=" +
+        client_secret +
+        "&grant_type=" +
+        grant_type +
+        "&redirect_uri=" +
+        redirect_uri +
+        "&code=" +
+        authorization_code;
+      const retrieve_token_uri = "https://channeli.in/open_auth/token/";
+      //method-post-of-const-data-to-url-https://channeli.in/open_auth/token/
+      const http = new XMLHttpRequest();
+      http.open("POST", retrieve_token_uri);
+      http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      http.send(data);
+      console.log(http.responseText)
+        // const access_token = tokenResponse.data.access_token;
+        // get_data(access_token)
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+async function get_data(access_token) {
+  
         // GET request to retrieve user data
         const retrieve_data_uri = "https://channeli.in/open_auth/get_user_data/";
         const userDataResponse = await axios.get(retrieve_data_uri, {
@@ -48,9 +72,6 @@ export default function Homepage() {
             "Current Year: " + parsed_user_data.student.currentYear + "<br/>" +
             "Institute Email: " + parsed_user_data.contactInformation.instituteWebmailAddress + "<br/>";
         console.log(profile_data_string);
-    } catch (error) {
-        console.error('Error:', error);
-    }
 }
 // fetch_user_data
   return (

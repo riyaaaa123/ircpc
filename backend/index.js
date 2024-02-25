@@ -12,6 +12,7 @@ app.use(express.json())
 
 
 app.use('/api/auth',require('./crud/auth'));
+app.use('/api/query',require('./crud/query'));
 app.use('/api/profiles', require('./crud/dashboard'))
 
 
