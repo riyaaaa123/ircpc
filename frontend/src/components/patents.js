@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import Nav from "./navbar"
+import Sidebar from'./sidebar'
 const AddPatentForm = () => {
     const [formData, setFormData] = useState({
       title: "",
@@ -55,13 +57,11 @@ const AddPatentForm = () => {
 
     return (
       <>
+      <Nav></Nav>
+      <div className="flex justify-start gap-5">
+        <Sidebar/>
         <div
-          className="min-h-screen width-[100vw] bg-cover"
-          style={{ backgroundImage: "url('img/bg.png')" }}
-        >
-          <div className="h-[100vh] justify-center items-center flex">
-            <div
-              className="text-white text-[2rem]  w-[60vw] border-gray-500 border p-2 rounded-xl"
+              className="text-black text-[2rem]  w-[60vw] border-white-500 border p-2 rounded-xl"
               style={{ backdropFilter: "blur(2px)" }}
             >
               <div className="text-center">Add patent here!</div>
@@ -136,8 +136,8 @@ const AddPatentForm = () => {
                 </div>
               </form>
             </div>
-          </div>
-        </div>
+          
+      </div>
       </>
     );
 }
