@@ -6,7 +6,7 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 export default function Mainpage(){
     return (
       <>
-        <div className="w-[100vw] min-h-screen">
+        <div className="w-[100vw] ">
           <div className="h-[8vh] bg-[#d7f1ff] flex items-center justify-between">
             <div className="px-[2vw] ">
               <img src="./img/logo.png" className="w-[24vw]" />
