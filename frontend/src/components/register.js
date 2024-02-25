@@ -2,7 +2,7 @@
 import React,{useState} from 'react';
 import Link from "next/link";
 import axios from "axios";
-import Login from "./login";
+import './style.css'
 
 export default function Register(){
      const [name, setName] = useState("");
@@ -41,76 +41,57 @@ export default function Register(){
 
     return (
       <>
-        <div
-          className="min-h-screen width-[100vw] bg-cover"
-          style={{ backgroundImage: "url('img/bg.png')" }}
-        >
-          <div className="h-[100vh] justify-center items-center flex">
-            <div
-              className="text-white text-[2rem]  w-[27vw] border-gray-500 border p-2 rounded-md"
-              style={{ backdropFilter: "blur(2px)" }}
-            >
-              <div className="text-center">Register here!</div>
-              <form className="">
-                <div className="flex-col flex">
-                  <label className="text-[1.4rem] mt-2">Name:</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                    placeholder="Enter your name"
-                    onChange={(e) => setName(e.target.value)}
-                    className="text-[1.2rem] h-[4vh] bg-transparent border border-green rounded-sm"
-                  />
-                </div>
-                <div className="flex-col flex">
-                  <label className="text-[1.4rem] mt-2">Email Id:</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    placeholder="Enter your email "
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="text-[1.2rem] h-[4vh] bg-transparent border border-green rounded-sm"
-                  />
-                </div>
-                <div className="flex-col flex">
-                  <label className="text-[1.4rem] mt-2 ">Password:</label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={password}
-                    placeholder="Enter password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="text-[1.2rem] h-[4vh] bg-transparent border border-green rounded-sm"
-                  />
-                </div>
-                <div className="justify-center flex bg-[#907656] mt-3 rounded-md">
-                  <button
-                    type="button"
-                    onClick={handleRegister}
-                    className="text-[1.3rem]  py-1.5  "
-                  >
-                    Register
-                  </button>
-                </div>
-                <div className="text-[1.3rem] mt-3 ">
-                  Already Have an Account&nbsp;&nbsp;
-                  <Link href="/signin">
-                    <div className="text-[#907656]">Login here!</div>
-                  </Link>
-                  To register through Channel-i :
-                  <Link href="https://kunalshaw79.github.io/notification/home">
-                    <div className="text-[#907656]"> Click here!</div>
-                  </Link>
-                </div>
-              </form>
-            </div>
-          </div>
+    <section className='myclass'>
+
+<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
+<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
+
+
+
+<div class="w-full lg:w-4/12 px-4 mx-auto pt-6">
+  <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+    <div class="rounded-t mb-0 px-6 py-6">
+      <div class="text-center mb-3">
+        <h6 class="text-blueGray-500 text-sm font-bold">
+          Sign in with
+        </h6>
+      </div>
+      <div class="btn-wrapper text-center">
+        <button class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150" type="button">
+          <img alt="..." class="w-5 mr-1" src="https://channeli.in/branding/site/logo.svg" />Channel-i</button>
+
+      </div>
+      <hr class="mt-6 border-b-1 border-blueGray-300" />
+    </div>
+    <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+      <div class="text-blueGray-400 text-center mb-3 font-bold">
+        <small>Or sign in with credentials</small>
+      </div>
+      <form>
+      <div class="relative w-full mb-3">
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-password">Name</label><input value={name} type="name" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Name" onChange={(e) => setName(e.target.value)} />
         </div>
+        <div class="relative w-full mb-3">
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-password">Email</label><input value={email} type="email" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+        </div>
+        <div class="relative w-full mb-3">
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-password">Password</label><input value={password} type="password" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+        </div>
+        <div class="text-center mt-6">
+          <button onClick={handleRegister} class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150" type="button"> Sign In </button>
+        </div>
+        <div class="text-center mb-3">
+        <h6 class="text-blueGray-500 text-sm font-bold">
+          Already Registered<Link href="/signin">
+            <div className="text-[#907656]">Login here!</div>
+          </Link>
+        </h6>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</section>
       </>
     );
 }
