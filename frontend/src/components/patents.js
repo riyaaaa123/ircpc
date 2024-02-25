@@ -47,6 +47,7 @@ const AddPatentForm = () => {
       try {
         const response = await axios.post("http://localhost:5000/api/profiles/addpatents", formData);
         console.log("Patent added successfully:", response.data);
+        window.location.href = "/"; 
       } catch (error) {
         console.error("Error adding patent:", error);
       }

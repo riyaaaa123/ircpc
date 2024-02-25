@@ -43,6 +43,7 @@ export default function Table() {
            );
              console.log(response.data);
            setPatents(response.data);
+           
          } catch (error) {
            console.error("Error fetching patents:", error);
          }
