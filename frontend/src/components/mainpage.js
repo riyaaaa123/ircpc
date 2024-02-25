@@ -26,7 +26,7 @@ export default function Mainpage(){
             </div>
           </div>
           <hr className="border-t-1 border-gray-500"></hr>
-          <div className="bg-white h-[10vh] flex justify-between items-center px-[10vw]">
+          {/* <div className="bg-white h-[10vh] flex justify-between items-center px-[10vw]">
             <div className="flex flex-col justify-center">
               <img src="./img/Dashboard.png" className="h-[4vh] w-14 ml-2" />
               <h2 className="">Dashboard</h2>
@@ -46,8 +46,8 @@ export default function Mainpage(){
             <div className="flex flex-col">
               <img src="./img/report.png" className="h-[4vh] w-14 ml-2" />
               <h2 className="">Reports</h2>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
           <hr className="border-t-1 border-gray-500"></hr>
         </div>
       </>

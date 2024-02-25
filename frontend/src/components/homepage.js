@@ -10,9 +10,9 @@ export default function Homepage() {
   const [add, setAdd] = useState("");
   return (
     <>
-    <Mainpage/>
-      <div className="flex justify-between	">
-        <Sidebar/>
+      <Mainpage />
+      <div className="grid grid-cols-[auto,1fr]">
+        <Sidebar className="h-screen" />
         <Table />
       </div>
     </>
