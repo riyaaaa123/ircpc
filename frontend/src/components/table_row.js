@@ -1,5 +1,12 @@
-import React from "react";
+import React,{useState} from "react";
+import Modal from './usermodal';
+
 export default function Row({serialNumber,name,title,background,status,submittedon,view_details}){
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleViewDetails = () => {
+      setIsModalOpen(true);
+    };
     const truncateTitle = (title) => {
       const words = title.split(" ");
       if (words.length > 1) {
@@ -41,11 +48,25 @@ export default function Row({serialNumber,name,title,background,status,submitted
             {submittedon}
           </td>
           <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
-            <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+            <button
+              onClick={handleViewDetails}
+              className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none"
+            >
               {view_details}
             </button>
           </td>
         </tr>
+        {isModalOpen && (
+          <Modal
+            serialNumber={serialNumber}
+            name={name}
+            title={title}
+            background={background}
+            status={status}
+            submittedon={submittedon}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
       </>
     );
 }

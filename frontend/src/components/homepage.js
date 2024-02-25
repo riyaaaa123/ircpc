@@ -7,7 +7,8 @@ import Mainpage from "./mainpage";
 
 
 export default function Homepage() {
-  const [add, setAdd] = useState("");
+  
+
   return (
     <>
       <Mainpage />

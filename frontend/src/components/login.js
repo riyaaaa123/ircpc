@@ -7,6 +7,11 @@ export default function Login() {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [error, setError] = useState("");
+   function redirector() {
+     const client_id = "Tm3HosWalwv6u2659Z2NNJVrix9dzlakb24ITtvV";
+     const url = "https://channeli.in/oauth/authorise/?client_id=" + client_id;
+     window.location = url;
+   }
     const handleLogin = async (event) => {
       event.preventDefault();
       try {
@@ -43,7 +48,7 @@ export default function Login() {
         </h6>
       </div>
       <div class="btn-wrapper text-center">
-        <button class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150" type="button">
+        <button onClick={redirector} className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150" type="button">
           <img alt="..." class="w-5 mr-1" src="https://channeli.in/branding/site/logo.svg" />Channel-i</button>
 
       </div>
