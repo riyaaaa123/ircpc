@@ -41,7 +41,7 @@ export default function Table() {
            const response = await axios.get(
              "http://localhost:5000/api/profiles/getpatents"
            );
-             console.log(response.data);
+            //  console.log(response.data);
            setPatents(response.data);
            
          } catch (error) {

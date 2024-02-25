@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+// import Avatar from "@mui/material/Avatar";
+// import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 export default function Mainpage(){
     return (
