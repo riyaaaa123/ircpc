@@ -90,7 +90,7 @@ export default function Table() {
                   name={patent.inventor.name}
                   title={patent.title}
                   background={patent.inventor.background}
-                  status={patent.status}
+                  status={patent.status.HOD}
                   submittedon={patent.dateofApplication}
                   view_details="View details"
                 />

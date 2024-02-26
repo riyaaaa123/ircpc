@@ -54,7 +54,7 @@ router.post("/addpatents", async (req, res) => {
       "Congratulations! You have successfully added your patent claim";
 
     await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
-    const websiteURL = `http://localhost:8080/ViewPatent/${savedPatent._id}`;
+    const websiteURL = `http://localhost:8080/ViewPatent?id=${savedPatent._id}`;
     const receiverEmail1 = "jindalriyaaa@gmail.com";
     const emailMessage1 =
       `Someone has added a patent claim, please visit the website to verify :  ${websiteURL}`;
@@ -85,9 +85,15 @@ router.put("/patents/:id/approve", async (req, res) => {
       return res.status(404).json({ message: "Patent not found" });
     }
 
-    patent.status = true;
+    patent.status.HOD = true;
     await patent.save();
+    const receiverEmail = "jindalriyaaa@gmail.com";
+    const senderEmail = "riyajindal769@gmail.com";
+    const emailSubject = "Patent is approved ";
+    const emailMessage =
+    "A new patent is approved by HOD. Please visit the website to see the patent details and approve the commitee";
 
+    await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
     res.json(patent);
   } catch (error) {
     console.error(error.message);
@@ -101,7 +107,7 @@ router.put("/patents/:id/reject", async (req, res) => {
       return res.status(404).json({ message: "Patent not found" });
     }
 
-    patent.status = false;
+    patent.status.HOD = false;
     await patent.save();
 
     res.json(patent);
@@ -238,6 +244,20 @@ router.put("/updateprofile/:id", async (req, res) => {
   );
   res.json({ updatedprofile });
 });
+// router.get("/patents/:id/committee", async (req, res) => {
+//   try {
+//     const patent = await Patents.findById(req.params.id);
+//     if (!patent) {
+//       return res.status(404).json({ message: "Patent not found" });
+//     }
+
+//     res.json(patent.committeeMembers);
+//   } catch (error) {
+//     console.error(error.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
+
 router.put(
   "/approvecommittee/:patentId/:committeeMemberId",
   async (req, res) => {
@@ -263,7 +283,7 @@ router.put(
              patentId: patent._id,
              committeeMemberId: committeeMember._id,
            };
-
+           
            const token = jwt.sign(tokenPayload, "secretKey", {
              expiresIn: "72h",
            });

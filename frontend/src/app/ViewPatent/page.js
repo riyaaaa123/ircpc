@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 export default function ViewPatent() {
-   const [id, setId] = useState(null);
+  const [id, setId] = useState(null);
   const [patent, setPatent] = useState({});
   const [approved, setApproved] = useState(false);
     useEffect(() => {
