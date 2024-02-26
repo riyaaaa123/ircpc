@@ -21,6 +21,7 @@ router.get("/getpatents", async (req, res) => {
 router.post("/addpatents", async (req, res) => {
   try {
     const {
+      email,
       title,
       fieldOfInvention,
       background,
@@ -35,6 +36,7 @@ router.post("/addpatents", async (req, res) => {
     } = req.body;
 
     const savedPatent = await Patents.create({
+      email,
       title,
       fieldOfInvention,
       background,
@@ -66,9 +68,13 @@ router.post("/addpatents", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-router.get("/patents/:id", async (req, res) => {
+router.get("/patents/:email", async (req, res) => {
   try {
-    const patent = await Patents.findById(req.params.id);
+    if(req.params.email == 'admin@ipr.iitr.ac.in') {
+      const allPatents = await Patents.find();
+          return res.json(allPatents);
+    }
+    const patent = await Patents.find({ email: req.params.email });
     if (!patent) {
       return res.status(404).json({ message: "Patent not found" });
     }
@@ -119,6 +125,7 @@ router.put("/patents/:id/reject", async (req, res) => {
 router.put("/updatepatent/:id", async (req, res) => {
   try {
     const {
+      email,
       title,
       fieldOfInvention,
       background,
@@ -134,6 +141,9 @@ router.put("/updatepatent/:id", async (req, res) => {
 
     // Create a newPatent object
     const newPatent = {};
+    if (email) {
+      newPatent.email = email;
+    }
     if (title) {
       newPatent.title = title;
     }

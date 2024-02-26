@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
   // const token = jwt.sign(token_creater, secret);
   const id_new = existing_user.id;
   const success = true;
-  res.json({ success,existing_user });
+  res.json({ success, existing_user });
 })
 
 router.post('/channeli', async (req, res) => {
