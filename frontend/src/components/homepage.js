@@ -9,6 +9,9 @@ import Mainpage from "./mainpage";
 
 export default function Homepage() {
   const [data, setData] = useState("");
+  useEffect(() =>{
+  fetch_user_data()
+  },[]);
   async function fetch_user_data() {
     console.log('fetching data')
     const params = new URLSearchParams(window.location.search);
@@ -42,10 +45,10 @@ export default function Homepage() {
 }
   return (
     <>
-    <Mainpage/>
-    <button onClick={fetch_user_data}>fetch</button>
-      <div className="flex justify-between	">
-        <Sidebar userdata={data}/>
+      <Mainpage />
+      {/* <button onClick={fetch_user_data}>fetch</button> */}
+      <div className="grid grid-cols-[auto,1fr]">
+        <Sidebar userdata={data} className="h-screen" />
         <Table />
       </div>
     </>

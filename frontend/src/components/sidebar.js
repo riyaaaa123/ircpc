@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState,useEffect } from "react";
+import axios from "axios"
+import Avatar from "@mui/material/Avatar";
 import { useRouter } from 'next/navigation'
 export default function Sidebar() {
   const router = useRouter()
@@ -20,14 +21,14 @@ export default function Sidebar() {
           <div className="flex flex-col items-center mt-6 -mx-2">
             <img
               className="object-cover w-24 h-24 mx-2 rounded-full"
-              src= {'https://channeli.in/'+userdata.person.displayPicture}
+              src= {'https://channeli.in/'+userdata?.person.displayPicture}
               alt="avatar"
             ></img>
             <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200">
-              {userdata.person.fullName}
+              {userdata?.person.fullName}
             </h4>
             <p className="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">
-              {userdata.contactInformation.instituteWebmailAddress}
+              {userdata?.contactInformation.instituteWebmailAddress}
             </p>
           </div>
 
@@ -52,7 +53,7 @@ export default function Sidebar() {
                   />
                 </svg>
 
-                <span className="mx-4 font-medium">Patents</span>
+                <span className="mx-4 font-medium">Applications</span>
               </a>
               
 
@@ -82,7 +83,7 @@ export default function Sidebar() {
                   />
                 </svg>
                 
-                <span className="mx-4 font-medium"><button onClick={() => router.push('/Patent')} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Patents</button></span>
+                <span className="mx-4 font-medium"><button onClick={() => router.push('/Patent')} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Apply Patents</button></span>
               </a>
 
               <a
@@ -104,7 +105,7 @@ export default function Sidebar() {
                   />
                 </svg>
 
-                <span className="mx-4 font-medium">Stats</span>
+                <span className="mx-4 font-medium">Statistics</span>
               </a>
 
               <a

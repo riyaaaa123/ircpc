@@ -27,7 +27,7 @@ body {
 } */
 .query-container {
   width: 80%;
-  margin: auto;
+  /* margin: auto; */
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -35,6 +35,8 @@ body {
 
 .query-list {
   margin-top: 20px;
+  overflow-y: scroll;
+  height: 55%;
 }
 
 .query-item {
