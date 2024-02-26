@@ -4,6 +4,7 @@ const router = express.Router();
 const Patents = require("../schema/Patents");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/sendmail");
+const Query = require('../schema/Query');
 
 
 router.get("/getpatents", async (req, res) => {
