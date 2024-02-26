@@ -53,8 +53,10 @@ router.post("/addpatents", async (req, res) => {
       "Congratulations! You have successfully added your patent claim";
 
     await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
-    const receiverEmail1 = "adii@iitr.ac.in";
-    const emailMessage1 = "Someone has added a patent claim, please visit the website to verify"
+    const websiteURL = `http://localhost:8080/ViewPatent/${savedPatent._id}`;
+    const receiverEmail1 = "jindalriyaaa@gmail.com";
+    const emailMessage1 =
+      `Someone has added a patent claim, please visit the website to verify :  ${websiteURL}`;
     await sendMail(receiverEmail1, senderEmail,emailSubject, emailMessage1)
 
     res.json(savedPatent);
@@ -63,7 +65,50 @@ router.post("/addpatents", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+router.get("/patents/:id", async (req, res) => {
+  try {
+    const patent = await Patents.findById(req.params.id);
+    if (!patent) {
+      return res.status(404).json({ message: "Patent not found" });
+    }
+    res.json(patent);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+router.put("/patents/:id/approve", async (req, res) => {
+  try {
+    const patent = await Patents.findById(req.params.id);
+    if (!patent) {
+      return res.status(404).json({ message: "Patent not found" });
+    }
 
+    patent.status = true;
+    await patent.save();
+
+    res.json(patent);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+router.put("/patents/:id/reject", async (req, res) => {
+  try {
+    const patent = await Patents.findById(req.params.id);
+    if (!patent) {
+      return res.status(404).json({ message: "Patent not found" });
+    }
+
+    patent.status = false;
+    await patent.save();
+
+    res.json(patent);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 router.put("/updatepatent/:id", async (req, res) => {
   try {
     const {

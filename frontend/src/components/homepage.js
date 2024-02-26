@@ -16,15 +16,21 @@ export default function Homepage() {
     const client_secret = "FkEK5CHn68xv0sBolyS14oUTJsbHPL0Jsowi8TJU895tPj05gC16cr1pIHF6ycDOPbwYOqCokmda7wX5osYfEGn4zVrcV8563pecjggHE7b1rARQG4jbbuiKEzF6s9zu";
     const authorization_code = window.location.search.split("&")[0].replace("?code=", "");
     console.log(authorization_code) 
-    const grant_type = authorization_code;
+    const grant_type = "authorization_code";
     const redirect_uri = "http://localhost:8080/";
 
-    const data = `client_id=${client_id}&client_secret=${client_secret}&grant_type=${grant_type}&redirect_uri=${redirect_uri}&code=${authorization_code}`;
+      const data = new URLSearchParams({
+        client_id: client_id,
+        client_secret: client_secret,
+        grant_type: "authorization_code",
+        redirect_uri: redirect_uri,
+        code: authorization_code,
+      }).toString();
     const retrieve_token_uri = "https://channeli.in/open_auth/token/";
 
     try {
         // POST request to retrieve access token
-        const tokenResponse = await axios.post(retrieve_token_uri, data, {
+        const tokenResponse = await axios.post(retrieve_token_uri,data, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

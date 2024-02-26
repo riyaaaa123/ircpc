@@ -11,7 +11,7 @@ const Modal = ({
   onClose,
 }) => {
   return (
-    <div className="modal-overlay w-[20%]">
+    <div className="modal-overlay w-[20%] ">
       <div className="modal">
         <div className="modal-header">
           <h2>Patent Details</h2>
