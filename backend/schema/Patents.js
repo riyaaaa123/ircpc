@@ -19,6 +19,10 @@ const committeeMemberSchema = new mongoose.Schema({
   joined: { type: Boolean, default: false },
 });
 const patentSchema = new Schema({
+  email:{
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
