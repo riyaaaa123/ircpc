@@ -4,7 +4,7 @@ import axios from "axios";
 import { useRouter } from 'next/navigation'
 export default function Sidebar() {
   const router = useRouter()
- 
+  const userdata = JSON.parse(localStorage.getItem('userdata'))
     return (
         <>
          
@@ -20,14 +20,14 @@ export default function Sidebar() {
           <div className="flex flex-col items-center mt-6 -mx-2">
             <img
               className="object-cover w-24 h-24 mx-2 rounded-full"
-              src="https://media.licdn.com/dms/image/D5603AQGt7JTXtwBB4A/profile-displayphoto-shrink_800_800/0/1700340530965?e=1714608000&v=beta&t=uKPVe-BvuXb2pgT6KK8ObJOTseGQ1YN65l_N1pmajUk"
+              src= {'https://channeli.in/'+userdata.person.displayPicture}
               alt="avatar"
             ></img>
             <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200">
-              Kunal Shaw
+              {userdata.person.fullName}
             </h4>
             <p className="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">
-              k_shaw@ph.iitr.ac.in
+              {userdata.contactInformation.instituteWebmailAddress}
             </p>
           </div>
 
@@ -87,7 +87,7 @@ export default function Sidebar() {
 
               <a
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                href="#"
+                href="#" onClick={() => router.push('/stats')}
               >
                 <svg
                   className="w-5 h-5"
@@ -109,7 +109,7 @@ export default function Sidebar() {
 
               <a
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                href="#"
+                href="#" onClick={() => router.push('/query')}
               >
                 <svg
                   className="w-5 h-5"
