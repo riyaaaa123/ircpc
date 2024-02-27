@@ -54,7 +54,6 @@ export default function Table() {
   return (
     <>
       <div className="my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8 min-h-screen">
-        
         <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
           <table className="min-w-full">
             <thead>
@@ -84,22 +83,31 @@ export default function Table() {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {patents.map((patent,index) => (
+              {patents.map((patent, index) => (
                 <Row
                   key={patent._id}
-                  serialNumber = {index+1}
+                  serialNumber={index + 1}
                   name={patent.inventor.name}
                   title={patent.title}
                   background={patent.inventor.background}
-                  status={patent.status.HOD}
-                  submittedon={patent.dateofApplication}
+                  status={
+                    patent.status.DSRIC
+                      ? "DSRIC Approved"
+                      : patent.status.ADI
+                      ? "ADI Approved"
+                      : patent.status.HOD
+                      ? "HOD Approved"
+                      : "Pending Approval"
+                  }
+                  submittedon={new Date(
+                    patent.dateOfApplication
+                  ).toLocaleDateString()}
                   view_details="View details"
                 />
               ))}
             </tbody>
           </table>
-          <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
-          </div>
+          <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans"></div>
         </div>
       </div>
     </>

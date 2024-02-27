@@ -107,9 +107,10 @@ router.put("/patents/:id/approve", async (req, res) => {
     await patent.save();
     const receiverEmail = "jindalriyaaa@gmail.com";
     const senderEmail = "riyajindal769@gmail.com";
+    const websiteURL = `http://localhost:8080/ViewPatentDetail?id=${req.params.id}`;
     const emailSubject = "Patent is approved ";
     const emailMessage =
-    "A new patent is approved by HOD. Please visit the website to see the patent details and approve the commitee";
+    `A new patent is approved by HOD. Please visit the website to see the patent details and approve the commitee : ${websiteURL}`;
 
     await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
     res.json(patent);
@@ -348,17 +349,18 @@ router.put(
       if (!patent) {
         return res.status(404).json({ message: "Patent not found" });
       }
-       const CommitteeMembers = patent.committeeMembers.filter(
-         (member) => member.status == true
-       );
-      console.log(CommitteeMembers);
-      CommitteeMembers.forEach(async (member) => {
-        const receiverEmail = member.email;
-        const senderEmail = "riyajindal769@gmail.com";
-        const emailSubject = "Invitation to Join Committee";
-        const emailMessage = `You have been approved to join the committee. Click the following link to accept or reject the invitation`;
-        await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
-      });
+      patent.status.ADI = true;
+      //  const CommitteeMembers = patent.committeeMembers.filter(
+      //    (member) => member.status == true
+      //  );
+      // console.log(CommitteeMembers);
+      // CommitteeMembers.forEach(async (member) => {
+      //   const receiverEmail = member.email;
+      //   const senderEmail = "riyajindal769@gmail.com";
+      //   const emailSubject = "Invitation to Join Committee";
+      //   const emailMessage = `You have been approved to join the committee. Click the following link to accept or reject the invitation`;
+      //   await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
+      // });
 
       res.status(200).json({ message: "Emails sent successfully" });
     } catch (error) {
