@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from 'next/link';
-
+import './style.css'
 export default function Login() {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");

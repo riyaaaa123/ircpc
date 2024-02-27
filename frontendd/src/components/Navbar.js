@@ -3,6 +3,7 @@ import React from 'react';
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const Navbar=()=>{
+
 return (
   <>
     <div className="bg-white bg bg-cover">
@@ -11,7 +12,7 @@ return (
           <img src="/img/mail.png" className="w-7 h-7" />
           <h6 className="mt-1 text-[rgba(140,140,140,1)]">
             <span className="font-bold">Email us at : </span>
-            <span>example@gmail.com </span>
+            <span>adii@iitr.ac.in </span>
           </h6>
         </div>
         <div className="mr-10 mt-3 flex gap-8">
@@ -45,7 +46,8 @@ return (
             className="mt-[-0.4rem] text-white  px-3 rounded-md h-[4vh] flex justify-center items-center"
             style={{ backgroundColor: "rgba(1, 130, 254, 1)" }}
           >
-            <button className="text-white">Login</button>
+            <a href="http://localhost:8080/signin">
+            <button className="text-white">IPRC Portal</button></a>
             <ArrowForwardIcon className="ml-2 text-white w-4" />
           </div>
         </div>
