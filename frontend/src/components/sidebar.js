@@ -4,11 +4,13 @@ import axios from "axios"
 import Avatar from "@mui/material/Avatar";
 import { useRouter } from 'next/navigation'
 export default function Sidebar() {
-  const router = useRouter()
-  const userdata = JSON.parse(localStorage.getItem('userdata'))
+    const router = useRouter()
+      const userdata = JSON.parse(localStorage.getItem('userdata'))
+
+      // const userdata = JSON.parse(localStorage.userdata)
+    // userdata.existing_user.email
     return (
         <>
-         
         <aside className="flex flex-col w-64 h-full px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
           <a href="#" className="mx-auto ">
             <img
@@ -141,4 +143,5 @@ export default function Sidebar() {
         </aside>
         </>
     )
-}  
+
+}

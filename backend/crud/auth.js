@@ -52,9 +52,23 @@ router.post('/login', async (req, res) => {
   //     }
   // }
   // const token = jwt.sign(token_creater, secret);
-  const id_new = existing_user.id;
+  impdata={
+    success: true,
+    username: '21118014',
+    person: {
+      fullName: existing_user.name,
+      displayPicture: 'static/student_profile/assets/logo.svg'
+    },
+    student: {
+      'branch department name': 'Physics Department',
+      enrolmentNumber: '21118014',
+    },
+    contactInformation: {
+      instituteWebmailAddress: existing_user.email,
+    }
+  }
   const success = true;
-  res.json({ success, existing_user });
+  res.json(impdata);
 })
 
 router.post('/channeli', async (req, res) => {

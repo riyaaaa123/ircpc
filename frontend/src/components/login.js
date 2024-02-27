@@ -20,8 +20,9 @@ export default function Login() {
           password,
         });
         if (response.data.success) {
-          console.log("You have successfully logged in");
-           localStorage.setItem("userdata", JSON.stringify(response.data));
+          console.log(response.data);
+          localStorage.setItem('userdata',JSON.stringify(response.data));
+
            window.location.href = "/"; 
            
         } else {
