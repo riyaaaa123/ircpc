@@ -3,8 +3,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import Nav from "./navbar"
 import Sidebar from'./sidebar'
+import Mainpage from "./mainpage";
+import { useRouter } from 'next/navigation';
+
 const AddPatentForm = () => {
+  const router = useRouter()
+  const userdata = JSON.parse(localStorage.getItem('userdata'))
     const [formData, setFormData] = useState({
+      email:userdata.contactInformation.instituteWebmailAddress,
       title: "",
       fieldOfInvention: "",
       detailedDescription: "",
@@ -47,8 +53,10 @@ const AddPatentForm = () => {
       e.preventDefault();
 
       try {
-        const response = await axios.post("http://localhost:5000/api/profiles/addpatents", formData);
+        const response = await axios.post("http://localhost:5000/api/profiles/addpatents", formData).then(alert('patent added succesfully '))
+        router.push('/')
         console.log("Patent added successfully:", response.data);
+        
       } catch (error) {
         console.error("Error adding patent:", error);
       }
@@ -57,9 +65,6 @@ const AddPatentForm = () => {
 
     return (
       <>
-      <Nav></Nav>
-      <div className="flex justify-start gap-5">
-        <Sidebar/>
         <div
               className="text-black text-[2rem]  w-[60vw] border-white-500 border p-2 rounded-xl"
               style={{ backdropFilter: "blur(2px)" }}
@@ -124,20 +129,9 @@ const AddPatentForm = () => {
                     border-green"
                   ></textarea>
                 </div>
-
-                <div className="justify-center flex bg-[#907656] mt-3 rounded-md">
-                  <button
-                    type="button"
-                    onClick={handleSubmit}
-                    className="text-[1.3rem]  py-1.5  "
-                  >
-                    Submit
-                  </button>
-                </div>
+                <button onClick={handleSubmit} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
               </form>
             </div>
-          
-      </div>
       </>
     );
 }
