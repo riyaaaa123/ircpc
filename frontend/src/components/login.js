@@ -20,7 +20,9 @@ export default function Login() {
           password,
         });
         if (response.data.success) {
-          console.log("You have successfully logged in");
+          console.log(response.data);
+          localStorage.setItem('userdata',JSON.stringify(response.data));
+
            window.location.href = "/"; 
         } else {
           setError("Invalid credentials");

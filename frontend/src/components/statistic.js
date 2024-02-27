@@ -94,21 +94,21 @@ export default function Stats() {
   return (
     <>
     <div className="stats">
-    <div style={{  margin: '20px' }}>
-      <div style={{ flex: '1', marginRight: '10px' }}>
+    {/* <div style={{  margin: '30px' }}> */}
+      <div className='ststbox' style={{ flex: '1', marginRight: '10px' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Department-wise Patent Applications</h2>
         <Bar data={departmentData} options={{ maintainAspectRatio: true }} />
       </div>
-      <div style={{ flex: '2', marginRight: '10px' }}>
+      <div className='ststbox' style={{ flex: '2', marginRight: '10px' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Department-wise Distribution</h2>
         <Pie data={pieChartData} options={{ maintainAspectRatio: true }} />
       </div>
-      <div style={{ flex: '3' }}>
+      <div className='ststbox'style={{ flex: '3' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Yearly Patent Filings</h2>
         <Bar data={yearlyData} options={{ maintainAspectRatio: true }} />
       </div>
     </div>
-    </div>
+    {/* </div> */}
     </>
   );
 };
