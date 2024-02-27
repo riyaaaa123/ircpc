@@ -1,12 +1,17 @@
 "use client";
-import React, { useState } from "react";
-import axios from "axios";
-
+import React, { useState,useEffect } from "react";
+import axios from "axios"
+import Avatar from "@mui/material/Avatar";
+import { useRouter } from 'next/navigation'
 export default function Sidebar() {
+    const router = useRouter()
+      const userdata = JSON.parse(localStorage.getItem('userdata'))
+
+      // const userdata = JSON.parse(localStorage.userdata)
+    // userdata.existing_user.email
     return (
         <>
-         
-        <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+        <aside className="flex flex-col w-64 h-full px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
           <a href="#" className="mx-auto ">
             <img
               className="w-auto h-6 sm:h-7"
@@ -18,14 +23,14 @@ export default function Sidebar() {
           <div className="flex flex-col items-center mt-6 -mx-2">
             <img
               className="object-cover w-24 h-24 mx-2 rounded-full"
-              src="https://media.licdn.com/dms/image/D5603AQGt7JTXtwBB4A/profile-displayphoto-shrink_800_800/0/1700340530965?e=1714608000&v=beta&t=uKPVe-BvuXb2pgT6KK8ObJOTseGQ1YN65l_N1pmajUk"
+              src= {'https://channeli.in/'+userdata?.person.displayPicture}
               alt="avatar"
             ></img>
             <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200">
-              Kunal Shaw
+              {userdata?.person.fullName}
             </h4>
             <p className="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">
-              k_shaw@ph.iitr.ac.in
+              {userdata?.contactInformation.instituteWebmailAddress}
             </p>
           </div>
 
@@ -33,7 +38,7 @@ export default function Sidebar() {
             <nav>
               <a
                 className="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-200"
-                href="/"
+                onClick={() => router.push('/')}
               >
                 <svg
                   className="w-5 h-5"
@@ -50,8 +55,9 @@ export default function Sidebar() {
                   />
                 </svg>
 
-                <span className="mx-4 font-medium">Patents</span>
+                <span className="mx-4 font-medium">Applications</span>
               </a>
+              
 
               <a
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -78,13 +84,13 @@ export default function Sidebar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-
-                <span className="mx-4 font-medium"><button onClick={()=>{window.location.href = "/Patent"}} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Patents</button></span>
+                
+                <span className="mx-4 font-medium"><button onClick={() => router.push('/Patent')} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Apply Patents</button></span>
               </a>
 
               <a
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                href="#"
+                href="#" onClick={() => router.push('/stats')}
               >
                 <svg
                   className="w-5 h-5"
@@ -101,15 +107,15 @@ export default function Sidebar() {
                   />
                 </svg>
 
-                <span className="mx-4 font-medium">Stats</span>
+                <span className="mx-4 font-medium">Statistics</span>
               </a>
 
               <a
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                href="#"
+                href="#" onClick={() => router.push('/query')}
               >
                 <svg
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,4 +143,5 @@ export default function Sidebar() {
         </aside>
         </>
     )
-}  
+
+}
