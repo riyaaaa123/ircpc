@@ -17,7 +17,7 @@ export default function ViewPatent() {
   const fetchPatentDetails = async (patentId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/profiles/patents/${patentId}`
+        `http://localhost:5000/api/profiles/patent/${patentId}`
       );
       setPatent(response.data);
     } catch (error) {

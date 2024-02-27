@@ -84,6 +84,18 @@ router.get("/patents/:email", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+router.get("/patent/:id", async (req, res) => {
+  try {
+    const patent = await Patents.findById(req.params.id);
+    if (!patent) {
+      return res.status(404).json({ message: "Patent not found" });
+    }
+    res.json(patent);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 router.put("/patents/:id/approve", async (req, res) => {
   try {
     const patent = await Patents.findById(req.params.id);
@@ -267,53 +279,95 @@ router.put("/updateprofile/:id", async (req, res) => {
 //     res.status(500).send("Server Error");
 //   }
 // });
-
 router.put(
-  "/approvecommittee/:patentId/:committeeMemberId",
+  "/accept-committee/:patentId/:committeeMemberId",
   async (req, res) => {
     try {
-      const { approved , name, email, department } = req.body;
       const { patentId, committeeMemberId } = req.params;
 
+      // Find the patent by ID
       const patent = await Patents.findById(patentId);
       if (!patent) {
-        return res.status(404).send("Patent not found");
+        return res.status(404).json({ message: "Patent not found" });
       }
+
+      // Find the committee member by ID
       const committeeMember = patent.committeeMembers.id(committeeMemberId);
       if (!committeeMember) {
-        return res.status(404).send("Committee member not found");
+        return res.status(404).json({ message: "Committee member not found" });
       }
-        if (name) committeeMember.name = name;
-        if (email) committeeMember.email = email;
-        if (department) committeeMember.department = department;
-        if (approved !== undefined) {
-        committeeMember.approved = approved;
-        if(approved==true) {
-           const tokenPayload = {
-             patentId: patent._id,
-             committeeMemberId: committeeMember._id,
-           };
-           
-           const token = jwt.sign(tokenPayload, "secretKey", {
-             expiresIn: "72h",
-           });
-          
-          const receiverEmail = committeeMember.email;
-          const senderEmail = "riyajindal769@gmail.com"; 
-          const emailSubject = "Invitation to Join Committee";
-          const acceptLink = `http://localhost:5000/api/profiles/accept-invite/${token}`;
-          const rejectLink = `http://localhost:5000/api/profiles/reject-invite/${token}`;
-          const emailMessage = `You have been approved to join the committee. Click the following link to accept or reject the invitation:\n\nAccept: ${acceptLink}\nReject: ${rejectLink}`;
-          await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
-      }}
-        await patent.save();
-      res.json({ committeeMember });
+
+      // Update the status of the committee member to accept
+      committeeMember.approved = true;
+      await patent.save();
+
+      res.json({ message: "Committee member accepted successfully" });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server Error");
     }
   }
 );
+
+// Route to reject a committee member
+router.put(
+  "/reject-committee/:patentId/:committeeMemberId",
+  async (req, res) => {
+    try {
+      const { patentId, committeeMemberId } = req.params;
+
+      // Find the patent by ID
+      const patent = await Patents.findById(patentId);
+      if (!patent) {
+        return res.status(404).json({ message: "Patent not found" });
+      }
+
+      // Find the committee member by ID
+      const committeeMember = patent.committeeMembers.id(committeeMemberId);
+      if (!committeeMember) {
+        return res.status(404).json({ message: "Committee member not found" });
+      }
+
+      // Update the status of the committee member to reject
+      committeeMember.approved = false;
+      await patent.save();
+
+      res.json({ message: "Committee member rejected successfully" });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+router.put(
+  "/send-emailto-committee/:patentId",
+  async (req, res) => {
+    try {
+      const { patentId} = req.params;
+      const patent = await Patents.findById(patentId);
+      if (!patent) {
+        return res.status(404).json({ message: "Patent not found" });
+      }
+       const CommitteeMembers = patent.committeeMembers.filter(
+         (member) => member.status == true
+       );
+      console.log(CommitteeMembers);
+      CommitteeMembers.forEach(async (member) => {
+        const receiverEmail = member.email;
+        const senderEmail = "riyajindal769@gmail.com";
+        const emailSubject = "Invitation to Join Committee";
+        const emailMessage = `You have been approved to join the committee. Click the following link to accept or reject the invitation`;
+        await sendMail(receiverEmail, senderEmail, emailSubject, emailMessage);
+      });
+
+      res.status(200).json({ message: "Emails sent successfully" });
+    } catch (error) {
+      console.error("Error sending emails to committee members:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
 router.get('/accept-invite/:token', async (req, res) => {
   try {
     const { token } = req.params;

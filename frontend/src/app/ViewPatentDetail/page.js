@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 export default function ViewPatentDetail(){
     const [id, setId] = useState(null);
+    const[mail,setMail] = useState(false);
     const [patent, setPatent] = useState({});
     useEffect(() => {
       const params = new URLSearchParams(window.location.search);
@@ -16,11 +17,45 @@ export default function ViewPatentDetail(){
        const fetchPatentDetails = async (patentId) => {
          try {
            const response = await axios.get(
-             `http://localhost:5000/api/profiles/patents/${patentId}`
+             `http://localhost:5000/api/profiles/patent/${patentId}`
            );
            setPatent(response.data);
          } catch (error) {
            console.error("Error fetching patent details:", error);
+         }
+       };
+       const approvePatent = async (patentId,committeeMemberId) => {
+         try {
+           await axios.put(
+             `http://localhost:5000/api/profiles/accept-committee/${patentId}/${committeeMemberId}`
+           );
+           
+           // Optionally, update UI or navigate to another page after approval
+         } catch (error) {
+           console.error("Error approving patent:", error);
+         }
+       };
+
+       const rejectPatent = async (patentId,committeeMemberId) => {
+         try {
+           await axios.put(
+             `http://localhost:5000/api/profiles/reject-committee/${patentId}/${committeeMemberId}`
+           );
+           
+           // Optionally, update UI or navigate to another page after rejection
+         } catch (error) {
+           console.error("Error rejecting patent:", error);
+         }
+       };
+       const FormCommittee = async (patentId) => {
+         try {
+           await axios.put(
+             `http://localhost:5000/api/profiles/send-emailto-committee/${patentId}`
+           );
+          setMail(true);
+           
+         } catch (error) {
+           console.error("Error rejecting patent:", error);
          }
        };
 
@@ -86,13 +121,17 @@ export default function ViewPatentDetail(){
                          <div className="flex space-x-4">
                            <button
                              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-2xl"
-                             onClick={() => confirmMember(member._id)}
+                             onClick={() =>
+                               approvePatent(patent._id, member._id)
+                             }
                            >
                              Confirm
                            </button>
                            <button
                              className="bg-red-500 hover:bg-red-300 text-white py-2 px-4 rounded text-2xl"
-                             onClick={() => deleteMember(member._id)}
+                             onClick={() =>
+                               rejectPatent(patent._id, member._id)
+                             }
                            >
                              Delete
                            </button>
@@ -102,9 +141,20 @@ export default function ViewPatentDetail(){
                    </ul>
                  )}
                </div>
-               <button className="mt-5 font-bold bg-black hover:bg-green-600 text-white py-2 px-4 rounded text-2xl ">
-                 Form Committee
-               </button>
+               {mail ? (
+                 <button
+                   className="mt-5 font-bold bg-black hover:bg-green-600 text-white py-2 px-4 rounded text-2xl "
+                 >
+                   Committee's Formed
+                 </button>
+               ) : (
+                 <button
+                   onClick={() => FormCommittee(patent._id)}
+                   className="mt-5 font-bold bg-black hover:bg-green-600 text-white py-2 px-4 rounded text-2xl "
+                 >
+                   Form Committee
+                 </button>
+               )}
              </div>
            </div>
          ) : (
